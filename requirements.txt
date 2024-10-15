@@ -1,0 +1,12 @@
+langchain
+langchain-core
+python-dotenv
+streamlit
+langchain-community
+langchain-groq
+fake-useragent
+webdriver-manager
+chromedriver-autoinstaller
+langchain-google-genai
+google-generativeai
+
