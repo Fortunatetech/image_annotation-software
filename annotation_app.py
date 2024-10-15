@@ -41,15 +41,16 @@ def get_prompt(image_type):
     """Return the appropriate prompt based on the image type."""
     if image_type == "Product Image":
         return (           
-           """For the Short Description of product:
+           """**For the Short Description**:
 
             - Emphasize simplicity.
             - Focus only on the key elements. What this object is, if something that comes in different shapes (i.e. perfume bottle), function, material, color
             - 20-25 words maximum, but better to keep it 5-15 words
             - Avoid using too many details for the short description and focus only on the key attributes.
             - Example: A cordless vacuum with a light blue base and silver and gold handle
-                   
-           For the Long Description:
+
+            **For the Long Description**:
+
             - Include all the specific details: the color of the fan, the number of blades, the material of the blades, brand/manufacturer and any additional features such as the industrial cage around the lights.
             - Do not describe it in a way to sell it, describe it in a way to help a machine learning model to understand what it looks like. Only include details that can be gathered from looking at the image, do not include details that would only be learned from the product description.
             - Any positioning should be based on your perspective looking at the image e.g. left, right"""
