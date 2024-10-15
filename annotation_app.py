@@ -78,8 +78,9 @@ def get_prompt(image_type):
             - Make this description detailed 
             - Do not describe it in a way to sell it, describe it in a way to help a machine learning model to understand what it looks like. Only include details that can be gathered from looking at the image, do not include details that would only be learned from the product description.
             - Any positioning should be based on your perspective looking at the image e.g. left, right
-            "- Avoid describing feelings or emotions tied to the image.\n"
-            "- Focus on positions like left, right, centered, etc.
+            - Avoid describing feelings or emotions tied to the image.
+            - Focus on positions like left, right, centered, etc.
+            - Give a detailed descrice of the person using the product as well including the color, hair style, posture, etc
             - note that you are to give full details of the product lifestyle image."""
         )
     return ""
