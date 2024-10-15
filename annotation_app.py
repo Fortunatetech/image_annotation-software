@@ -88,7 +88,7 @@ def main():
     if uploaded_image:
         # Display uploaded image
         image = Image.open(uploaded_image)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
+        st.image(image, caption='Uploaded Image', width=300)
 
         # Generate the appropriate prompt for the selected image type
         prompt = get_prompt(image_type)
