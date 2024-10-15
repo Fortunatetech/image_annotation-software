@@ -51,7 +51,11 @@ def get_prompt(image_type):
 
             **For the Long Description**:
 
-            - Include all the specific details: the color of the fan, the number of blades, the material of the blades, brand/manufacturer and any additional features such as the industrial cage around the lights.
+            - Include all the specific details: the color of the products, material of the product,
+              brand/manufacturer and any additional features.
+            - Ensure it is includes details of the background, if the background include design descrice as well.
+            - take note of the the text on the and the product itself, include it in the description.
+            - Make this description detailed 
             - Do not describe it in a way to sell it, describe it in a way to help a machine learning model to understand what it looks like. Only include details that can be gathered from looking at the image, do not include details that would only be learned from the product description.
             - Any positioning should be based on your perspective looking at the image e.g. left, right"""
         )
