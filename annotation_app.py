@@ -32,11 +32,8 @@ def generate_image_descriptions(image, prompt):
     response = model.generate_content(contents)
 
     # Extract the generated content text from the response
-    if response and response.result and response.result.candidates:
-        generated_text = response.result.candidates[0].content.parts[0].text
-    else:
-        generated_text = "No description generated."
-
+    
+    generated_text = response.candidates[0].content.parts[0].text
     return generated_text
 
 # Function to get prompt based on image type
