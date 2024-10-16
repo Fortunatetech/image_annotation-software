@@ -41,47 +41,44 @@ def get_prompt(image_type):
     """Return the appropriate prompt based on the image type."""
     if image_type == "Product Image":
         return (           
-           """**For the Short Description**:
+           """**For the Short Description:**
 
-            - Emphasize simplicity.
-            - Focus only on the key elements. What this object is, if something that comes in different shapes (i.e. perfume bottle), function, material, color
-            - Keep the short description to be 5 words maximum, but better to keep it 15 words
-            - Avoid using too many details for the short description and focus only on the key attributes.
-            - Example: A cordless vacuum with a light blue base and silver and gold handle
+            - Emphasize simplicity and conciseness.
+            - Focus on the essential elements: the object's identity, shape (if applicable), function, material, and color.
+            - Keep the description under 15 words, ideally aiming for 5 words.
+            - Avoid excessive detail and focus on the core attributes.
+            - Example: "Cordless vacuum, light blue base, silver-gold handle."
 
-            **For the Long Description**:
+            **For the Long Description:**
 
-            - Include all the specific details: the color of the products, material of the product,
-              brand/manufacturer and any additional features.
-            - Ensure it is includes details of the background, if the background include design descrice as well.
-            - take note of the the text on the and the product itself, include it in the description.
-            - Make this description detailed 
-            - Do not describe it in a way to sell it, describe it in a way to help a machine learning model to understand what it looks like. Only include details that can be gathered from looking at the image, do not include details that would only be learned from the product description.
-            - Any positioning should be based on your perspective looking at the image e.g. left, right"""
+            - Provide comprehensive details, including color, material, brand/manufacturer, and additional features.
+            - Describe the background of the image including any artistic or design elements.
+            - Include any text present on the image or the product itself.
+            - Avoid promotional language and focus on objective description for machine learning understanding.
+            - Limit details to those observable in the image, excluding information only available from product descriptions.
+            - Use a consistent perspective (e.g., left, right) for positioning."""
         )
     elif image_type == "Lifestyle Image":
-        return ("""
-            "I am working on a project that involves captioning two images: a product image and a lifestyle image showcasing the product in use. "
-            "You are to provide a short and long caption for this image. Follow the guidelines below:\n\n"
-            
-            "For the Short Description of the lifestyle image:\n"
-            "- Emphasize simplicity.\n"
-            "- Focus on key elements like object, shape, function, material, and color.\n"
-            "- 20-25 words maximum, but better to keep it 5-15 words.\n"
-            "- Avoid using too many details for the short description.\n\n"
-            
-            "For the Long Description:"
-            - Include all the specific details: the color of the products, material of the product,
-              brand/manufacturer and any additional features.
-            - Ensure it is includes details of the background, if the background include design descrice as well.
-            - take note of the the text on the and the product itself, include it in the description.
-            - Make this description detailed 
-            - Do not describe it in a way to sell it, describe it in a way to help a machine learning model to understand what it looks like. Only include details that can be gathered from looking at the image, do not include details that would only be learned from the product description.
-            - Any positioning should be based on your perspective looking at the image e.g. left, right
-            - Avoid describing feelings or emotions tied to the image.
-            - Focus on positions like left, right, centered, etc.
-            - Give a detailed descrice of the person using the product as well including the color, hair style, posture, etc
-            - note that you are to give full details of the product lifestyle image."""
+        return ("""  For the Short Description of the Lifestyle Image:
+
+                    Emphasize simplicity and conciseness.
+                    Focus on key elements: object, shape, function, material, and color.
+                    Keep the description under 15 words, ideally 5-10 words.
+                    Avoid excessive detail and focus on core attributes.
+                    Example: "Person using a blue laptop at a cafe."
+                    For the Long Description:
+
+                    Provide comprehensive details, including colors, materials, brands, and features.
+                    Describe the background if it contains design elements.
+                    Include any text present on the image or the product.
+                    Avoid promotional language and focus on objective description for machine learning.
+                    Limit details to those observable in the image, excluding information from product descriptions.
+                    Use a consistent perspective (e.g., left, right) for positioning.
+                    Avoid describing feelings or emotions tied to the image.
+                    Focus on positions like left, right, centered, etc.
+                    Provide detailed descriptions of the person using the product, including color, hairstyle, posture, etc.
+                    Ensure the description fully captures the lifestyle context of the image. 
+                 """
         )
     return ""
 
