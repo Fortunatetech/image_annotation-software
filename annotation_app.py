@@ -51,7 +51,7 @@ def get_prompt(image_type):
 
             **For the Long Description:**
 
-            - Provide comprehensive details, including color, material, brand/manufacturer, and additional features.
+            - Provide comprehensive details, including color, material, brand or manufacturer, and additional features.
             - Describe the background of the image including any artistic or design elements.
             - Include any text present on the image or the product itself.
             - Avoid promotional language and focus on objective description for machine learning understanding.
