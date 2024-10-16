@@ -56,7 +56,8 @@ def get_prompt(image_type):
             - Include any text present on the image or the product itself.
             - Avoid promotional language and focus on objective description for machine learning understanding.
             - Limit details to those observable in the image, excluding information only available from product descriptions.
-            - Use a consistent perspective (e.g., left, right) for positioning."""
+            - Any positioning should be based on your perspective looking at the image e.g. left, right
+            - Ensure you pay attention to the position of the product in the image and include the detail in the decription"""
         )
     elif image_type == "Lifestyle Image":
         return ("""  For the Short Description of the Lifestyle Image:
@@ -77,7 +78,10 @@ def get_prompt(image_type):
                     Avoid describing feelings or emotions tied to the image.
                     Focus on positions like left, right, centered, etc.
                     Provide detailed descriptions of the person using the product, including color, hairstyle, posture, etc.
-                    Ensure the description fully captures the lifestyle context of the image. 
+                    Ensure the description fully captures the lifestyle context of the image.
+                    Any positioning should be based on your perspective looking at the image e.g. left, right
+                    - Ensure you pay attention to the position of the product in the image and include the detail in the decription 
+                    - if the person in the image is holding any object consider the positioning of the object held interm of wheher rigth or left.
                  """
         )
     return ""
