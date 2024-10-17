@@ -4,14 +4,16 @@ import io
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
-
+#models/gemini-1.5-flash
+#gemini-1.5-pro
+# gemini-1.5-pro-002
 # Load environment variables
 load_dotenv()
 
 # Google API Configuration
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel("models/gemini-1.5-flash")
+model = genai.GenerativeModel("models/gemini-1.5-pro-002")
 
 # Function to generate image descriptions using LLM
 def generate_image_descriptions(image, prompt):
