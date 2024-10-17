@@ -45,7 +45,7 @@ def get_prompt(image_type):
 
             - Emphasize simplicity and conciseness.
             - Focus on the essential elements: the object's identity, shape (if applicable), function, material, and color.
-            - Keep the description under 15 words, ideally aiming for 5 words.
+            - Ensure you keep the description between 8 to 15 words but ensure is under 15 words.
             - Avoid excessive detail and focus on the core attributes.
             - Example: "Cordless vacuum, light blue base, silver-gold handle."
 
@@ -66,7 +66,7 @@ def get_prompt(image_type):
 
                     Emphasize simplicity and conciseness.
                     Focus on key elements: object, shape, function, material, and color.
-                    Keep the description under 15 words, ideally 5-10 words.
+                    Ensure you keep the description between 8 to 15 words but ensure is under 15 words.
                     Avoid excessive detail and focus on core attributes.
                     Example: "Person using a blue laptop at a cafe."
                     For the Long Description:
