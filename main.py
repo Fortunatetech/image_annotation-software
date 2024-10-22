@@ -176,8 +176,8 @@ def main():
         prompt = get_grammar_prompt()
 
         # Button to generate corrected text
-        if st.button("Correct Grammar"):
-            if user_input:
+        if user_input:
+            if st.button("Correct Grammar"):
                 corrected_text = correct_grammar(user_input, prompt)
                 st.text_area("Corrected Text (Editable)", value=corrected_text, height=150)
             else:

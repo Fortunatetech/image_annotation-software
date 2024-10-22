@@ -10,4 +10,4 @@ webdriver-manager
 chromedriver-autoinstaller
 langchain-google-genai
 google-generativeai
-
+flask
