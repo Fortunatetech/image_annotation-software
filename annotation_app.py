@@ -93,7 +93,7 @@ def get_prompt(image_type):
 
 # Streamlit app interface
 def main():
-    st.title("AY-Grace Image Caption Generator")
+    st.title("SBX Image Caption Generator")
 
     # Image type selection
     image_type = st.selectbox("Select Image Type", ["Product Image", "Lifestyle Image"])
