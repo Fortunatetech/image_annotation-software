@@ -122,9 +122,9 @@ def get_grammar_prompt():
 
 # Streamlit app interface
 def main():
-    st.set_page_config(page_title="🚀 AY AI Powerhouse: Image Descriptions & Grammar Correction", layout="wide")
+    st.set_page_config(page_title="🚀 AI Powerhouse: Image Descriptions & Grammar Correction", layout="wide")
 
-    st.title("🚀 AY AI Powerhouse: Image Descriptions & Grammar Correction")
+    st.title("🚀 AI Powerhouse: Image Descriptions & Grammar Correction")
 
     # Instructional Dropdown
     with st.expander("ℹ️ How to Use the App", expanded=False):
