@@ -12,47 +12,32 @@ load_dotenv()
 # Google API Configuration
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel("models/gemini-1.5-pro-002")
+model = genai.GenerativeModel("models/gemini-1.5-flash-002")
 
-# Predefined password (You can store this securely in an environment variable)
+# Predefined password
 APP_PASSWORD = os.getenv("APP_PASSWORD")  # Load password from environment variables
 
 # Function to download and convert image from URL to a PIL image
 def download_image_from_url(image_url):
     """Downloads image from a URL and converts it to a PIL image."""
-    response = requests.get(image_url)
-    img = Image.open(io.BytesIO(response.content))
-    return img
-
-# Function to convert PIL image to a byte array (Blob)
-def image_to_byte_array(image):
-    """Converts a PIL image to a byte array (Blob)."""
-    img_byte_arr = io.BytesIO()
-    image.save(img_byte_arr, format=image.format)
-    img_byte_arr.seek(0)
-    return img_byte_arr
+    try:
+        response = requests.get(image_url)
+        response.raise_for_status()  # Raise an error for invalid URLs
+        img = Image.open(io.BytesIO(response.content))
+        return img
+    except Exception as e:
+        st.error(f"Error loading image: {str(e)}")
+        return None
 
 # Function to generate image descriptions using LLM
 def generate_image_descriptions(image, prompt):
     """Send image and prompt to LLM to get descriptions."""
     try:
-        # Convert the image to a byte array (Blob)
-        img_byte_arr = image_to_byte_array(image)
-
-        # Prepare the input as content
-        contents = [
-            prompt,  # Pass the prompt as a simple string
-            image  # Pass the image as a PIL image
-        ]
-
-        # Generate response using the model
-        response = model.generate_content(contents)
-
-        # Extract the generated content text from the response
+        response = model.generate_content([prompt, image])
         generated_text = response.candidates[0].content.parts[0].text
         return generated_text
     except Exception as e:
-        return "Usage limit reached"
+        return "Usage limit reached or an error occurred."
 
 # Function to get prompt based on image type
 def get_prompt(image_type):
@@ -70,23 +55,19 @@ def get_prompt(image_type):
             **For the Long Description:**
 
             - Provide comprehensive details, including color, material, brand or manufacturer, and additional features.
-            - Describe the background of the image including any artistic or design elements.
+            - Note: Ensure you don not include background of the image including any artistic or design elements.
             - Include any text present on the image or the product itself.
             - Avoid promotional language and focus on objective description for machine learning understanding.
             - Limit details to those observable in the image, excluding information only available from product descriptions.
             - Any positioning should be based on your perspective looking at the image e.g. left, right
-            - Ensure you pay attention to the position of the product in the image and include the detail in the description
-            - Finally, ensure you include every detail in the image.
+            - Ensure you pay attention to the position of the product in the image and include the detail in the decription
+            - Finally, ensure you include every details in the image.
             """
         )
     elif image_type == "Lifestyle Image":
-        return ("""  For the Short Description of the Lifestyle Image:
+        return (""" 
+                Note: focus only on long description for lifestyle image!
 
-                    Emphasize simplicity and conciseness.
-                    Focus on key elements: object, shape, function, material, and color.
-                    Ensure you keep the description between 8 to 15 words but ensure is under 15 words.
-                    Avoid excessive detail and focus on core attributes.
-                    Example: "Person using a blue laptop at a cafe."
                     For the Long Description:
 
                     Provide comprehensive details, including colors, materials, brands, and features.
@@ -100,9 +81,9 @@ def get_prompt(image_type):
                     Provide detailed descriptions of the person using the product, including color, hairstyle, posture, etc.
                     Ensure the description fully captures the lifestyle context of the image.
                     Any positioning should be based on your perspective looking at the image e.g. left, right
-                    - Ensure you pay attention to the position of the product in the image and include the detail in the description 
-                    - if the person in the image is holding any object consider the positioning of the object held in terms of whether right or left.
-                    - Finally, ensure you include every detail in the image.
+                    - Ensure you pay attention to the position of the product in the image and include the detail in the decription 
+                    - if the person in the image is holding any object consider the positioning of the object held interm of wheher rigth or left.
+                    - Finally, ensure you include every details in the image.
                  """
         )
     return ""
@@ -114,27 +95,23 @@ def login(password_input):
         st.session_state["logged_in"] = True
         st.success("Login successful! You can now use the app.")
     else:
-        st.error("Incorrect password. Please check your password and try again.")
+        st.error("Incorrect password. Please try again.")
 
 # Streamlit app interface
 def main():
     st.title("SBX Image Caption Generator")
 
-        # Instructional Dropdown
+    # Instructional Dropdown
     with st.expander("ℹ️ How to Use the App", expanded=False):
         st.write("""
-        1. Select the appropriate image type (Product or Lifestyle).
-        2. Upload Image or Use URL: Either upload an image file or provide an image URL.
-        3. Click 'Generate Description' to generate an image description.
-        4. Edit the description in the provided text box.
-        5. Copy and paste the edited description into the Grammar Correction Tool for necessary corrections.
-        6. Finally, click 'Correct Grammar' and copy the corrected text for your use.
-        
+        1. Input the **Product Image URL** in the first column and **Lifestyle Image URL** in the second column.
+        2. Click the 'Generate Description' button to generate an image description.
+        3. Edit the generated description in the text box if necessary and copy it for your use.
+                 
         **Note:**
         1. The Image Caption Tool may not support sensitive images.
         2. If the usage limit is reached, an error message will be displayed.
         """)
-
 
     # Sidebar for login
     with st.sidebar:
@@ -143,52 +120,60 @@ def main():
         if st.button("Login"):
             login(password_input)
 
-     # Check if the user is already logged in
+    # Check if the user is logged in
     if "logged_in" not in st.session_state:
         st.session_state["logged_in"] = False
 
-    # If logged in, show the main app
     if st.session_state["logged_in"]:
-        # Image type selection before upload or URL
-        image_type = st.selectbox("Select Image Type", ["Product Image", "Lifestyle Image"])
+        # Initialize session state variables for persistence
+        if "product_description" not in st.session_state:
+            st.session_state["product_description"] = ""
+        if "lifestyle_description" not in st.session_state:
+            st.session_state["lifestyle_description"] = ""
 
-        # Create two columns for image upload and URL
-        col1, col2 = st.columns(2)
+        # Create two columns for product and lifestyle image URLs
+        col1, col2 = st.columns([1, 1], gap="large")
 
-        # Initialize image variable
-        image = None
-
-        # Column 1: Upload Image
+        # Column 1: Product Image Section
         with col1:
-            st.subheader("Upload Image")
-            uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png", "webp"])
-            if uploaded_image:
-                image = Image.open(uploaded_image)
-                st.image(image, caption='Uploaded Image', width=300)
+            st.subheader("Product Image")
+            product_url = st.text_input("Enter Product Image URL")
 
-        # Column 2: Use Image URL
-        with col2:
-            st.subheader("Use Image URL")
-            image_url = st.text_input("Enter Image URL")
-            if image_url:
+            if product_url:
                 try:
-                    image = download_image_from_url(image_url)
-                    st.image(image, caption='Image from URL', width=250)
+                    product_image = download_image_from_url(product_url)
+                    st.image(product_image, caption='Product Image', width=300)
+
+                    if st.button("Generate Product Description"):
+                        prompt = get_prompt("Product Image")
+                        st.session_state["product_description"] = generate_image_descriptions(product_image, prompt)
+
                 except Exception as e:
-                    st.error(f"Error loading image: {str(e)}")
+                    st.error(f"Error loading product image: {str(e)}")
 
-        # Only generate the description if an image is available
-        if image:
-            # Generate the appropriate prompt for the selected image type
-            prompt = get_prompt(image_type)
+            # Display product description with persistence
+            st.text_area("Product Description", st.session_state["product_description"], height=150)
 
-            # Button to generate captions
-            if st.button("Generate Description"):
-                generated_text = generate_image_descriptions(image, prompt)
-                if generated_text == "Usage limit reached":
-                    st.error("Usage limit reached. Please try again later.")
-                else:
-                    st.write("**Generated Description:**", generated_text)
+        # Column 2: Lifestyle Image Section
+        with col2:
+            st.subheader("Lifestyle Image")
+            lifestyle_url = st.text_input("Enter Lifestyle Image URL")
+
+            if lifestyle_url:
+                try:
+                    lifestyle_image = download_image_from_url(lifestyle_url)
+                    st.image(lifestyle_image, caption='Lifestyle Image', width=300)
+
+                    if st.button("Generate Lifestyle Description"):
+                        prompt = get_prompt("Lifestyle Image")
+                        st.session_state["lifestyle_description"] = generate_image_descriptions(lifestyle_image, prompt)
+
+                except Exception as e:
+                    st.error(f"Error loading lifestyle image: {str(e)}")
+
+            # Display lifestyle description with persistence
+            st.text_area("Lifestyle Description", st.session_state["lifestyle_description"], height=150)
+
     else:
         st.warning("Please log in to use the application.")
 
