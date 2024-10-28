@@ -99,10 +99,15 @@ def main():
     image_type = st.selectbox("Select Image Type", ["Product Image", "Lifestyle Image"])
 
     # Upload image
-    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png", "webp"])
+    uploaded_image = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png", "webp", "avif"])
     
     if uploaded_image:
         # Display uploaded image
+      
+    
+    
+      
+    
         image = Image.open(uploaded_image)
         st.image(image, caption='Uploaded Image', width=300)
 
