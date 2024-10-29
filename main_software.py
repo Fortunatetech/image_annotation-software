@@ -20,14 +20,20 @@ APP_PASSWORD = os.getenv("APP_PASSWORD")  # Load password from environment varia
 # Function to download and convert image from URL to a PIL image
 def download_image_from_url(image_url):
     """Downloads image from a URL and converts it to a PIL image."""
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
     try:
-        response = requests.get(image_url)
+        response = requests.get(image_url, headers=headers)
         response.raise_for_status()  # Raise an error for invalid URLs
         img = Image.open(io.BytesIO(response.content))
         return img
+    except requests.exceptions.HTTPError as http_err:
+        st.error(f"HTTP error occurred: {http_err}")
     except Exception as e:
         st.error(f"Error loading image: {str(e)}")
-        return None
+    return None
+
 
 # Function to generate image descriptions using LLM
 def generate_image_descriptions(image, prompt):
