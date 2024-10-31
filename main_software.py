@@ -67,7 +67,7 @@ def get_prompt(image_type):
             - Limit details to those observable in the image, excluding information only available from product descriptions.
             - Any positioning should be based on your perspective looking at the image e.g. left, right
             - Ensure you pay attention to the position of the product in the image and include the detail in the decription
-            - Finally, ensure you include every details in the image.
+            - Finally, ensure you include every details in the image and return a longer description.
             """
         )
     elif image_type == "Lifestyle Image":
@@ -89,7 +89,7 @@ def get_prompt(image_type):
                     Any positioning should be based on your perspective looking at the image e.g. left, right
                     - Ensure you pay attention to the position of the product in the image and include the detail in the decription 
                     - if the person in the image is holding any object consider the positioning of the object held interm of wheher rigth or left.
-                    - Finally, ensure you include every details in the image.
+                    - Finally, ensure you include every details in the image and return a longer description.
                  """
         )
     return ""
