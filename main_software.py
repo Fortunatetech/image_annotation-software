@@ -12,7 +12,7 @@ load_dotenv()
 # Google API Configuration
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel("models/gemini-1.5-flash-8b")
+model = genai.GenerativeModel("models/gemini-1.5-flash-002")
 
 # Predefined password
 APP_PASSWORD = os.getenv("APP_PASSWORD")  # Load password from environment variables
