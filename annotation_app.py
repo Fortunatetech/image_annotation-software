@@ -100,7 +100,7 @@ def main():
     image_url = st.text_input("Enter image URL (optional)")
     uploaded_image = st.file_uploader("Or upload an image", type=["jpg", "jpeg", "png", "webp", "avif"])
     
-    image_source = image_url or uploaded_image
+    image_source = uploaded_image or image_url
     
     if image_source:
         image = load_image(image_source)
