@@ -13,7 +13,7 @@ load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 
-model = genai.GenerativeModel("models/gemini-1.5-pro-latest")
+model = genai.GenerativeModel("models/gemini-1.5-pro")
 
 
 # Predefined password
