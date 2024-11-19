@@ -15,6 +15,7 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 model = genai.GenerativeModel("models/gemini-1.5-pro-latest")
 
+
 # Predefined password
 APP_PASSWORD = os.getenv("APP_PASSWORD")  # Load password from environment variab
 
