@@ -71,7 +71,7 @@ def get_prompt(image_type):
             - Avoid promotional language and focus on objective description for machine learning understanding.
             - Limit details to those observable in the image, excluding information only available from product descriptions.
             - Any positioning should be based on your perspective looking at the image e.g. left, right
-            - Ensure you pay attention to the position of the product in the image and include the detail in the decription
+            - Ensure you pay attention to the position of the product in the image and include the detail in the decription.
             - Finally, ensure you include every details in the image.
             """
         )
