@@ -22,7 +22,7 @@ def generate_image_descriptions(image, prompt):
     img_byte_arr.seek(0)  # Go back to the start of the buffer
 
     # Generate response using the model
-    response = model.generate_content([prompt])
+    response = model.generate_content([prompt, image])
     generated_text = response.candidates[0].content.parts[0].text
     return generated_text
 
